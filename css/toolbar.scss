@@ -1,0 +1,217 @@
+//方法一：使用背景图片的方法实现
+/*
+$toolbar-size: 52px;
+//通过传值进行定位，简化代码
+@mixin toolbar-item($pos,$hoverPos) {
+  background-position: 0 $pos;
+  &:hover{
+    background-position: 0 $hoverPos;
+  }
+}
+
+//放在页面的正中间
+.toolbar {
+  position: fixed;
+  left: 50%;
+  bottom: 5px;
+  margin-left: $toolbar-size / 2;
+}
+
+//相同代码合并--优化后
+.toolbar-item, .toolbar-layer {
+  background-image: url(../img/toolbar.png);
+  background-repeat: no-repeat;
+}
+
+//公共属性
+.toolbar-item {
+  position: relative;
+  display: block;
+  width: $toolbar-size;
+  height: $toolbar-size;
+  margin-top: 1px;
+  //transition: background-position 1s;
+  @include transition(background-position 1s);
+  //划过时的动态效果
+  &:hover {
+    .toolbar-layer {
+      !*opacity: 1;
+      filter: alpha(opacity=100);*!
+      @include opacity(1);
+      //transform: scale(1);
+      @include scale(1);
+    }
+  }
+}
+
+//图片的定位，像素值相近即可
+.toolbar-item-weixin {
+  !* background-position: 0 -798px;
+   &:hover {
+     background-position: 0 -860px;
+   }*!
+  @include toolbar-item(-798px, -860px);
+
+  .toolbar-layer {
+    height: 210px;
+    background-position: 0 0;
+  }
+}
+
+.toolbar-item-feedback {
+  !* background-position: 0 -426px;
+   &:hover {
+     background-position: 0 -488px;
+   }*!
+  @include toolbar-item(-426px, -488px);
+}
+
+.toolbar-item-app {
+  !*background-position: 0 -550px;
+  &:hover {
+    background-position: 0 -611px;
+  }*!
+  @include toolbar-item(-550px, -611px);
+  .toolbar-layer {
+    height: 190px;
+    background-position: 0 -220px;
+  }
+}
+
+.toolbar-item-top {
+  !* background-position: 0 -675px;
+   &:hover {
+     background-position: 0 -735px;
+   }*!
+  @include toolbar-item(-675px, -735px);
+}
+
+//二维码的公共属性，图片有阴影所以这样设置right bottom
+.toolbar-layer {
+  position: absolute;
+  right: $toolbar-size - 6;
+  bottom: -10px;
+  width: 172px;
+  !*opacity: 0;
+  filter: alpha(opacity=0);*!
+  @include opacity(0);
+  //transform-origin: 95% 95%;
+  @include transform-origin(95% 95%);
+  //transform: scale(0.01);
+  @include scale(0);
+  //transition: all 1s;
+  @include transition(all 1s);
+}
+*/
+//方法二：使用字体的方法实现
+
+$toolbar-size:52px;
+.toolbar{
+  position: fixed;
+  left: 50%;
+  bottom: 5px;
+  margin-left: -$toolbar-size / 2;
+}
+//将重复的代码合并
+.toolbar-item,.toolbar-btn,.toolbar-icon,.toolbar-text{
+  width: $toolbar-size;
+  height: $toolbar-size;
+}
+.toolbar-item{
+  position: relative;
+  display: block;
+/*  width: $toolbar-size;
+  height: $toolbar-size;*/
+  margin-top: 1px;
+  &:hover{
+    .toolbar-icon{
+      top:-$toolbar-size;
+    }
+    .toolbar-text{
+      top: 0;
+    }
+    .toolbar-layer{
+      @include opacity(1);
+      @include scale(1);
+      @include transition(all 1s)
+    }
+
+  }
+}
+.toolbar-btn{
+  position: absolute;
+  left: 0;
+  top:0;
+ /* width: $toolbar-size;
+  height: $toolbar-size;*/
+  overflow: hidden;
+}
+.toolbar-icon{
+  position: absolute;
+  left: 0;
+  top:0;
+  /*width: $toolbar-size;
+  height: $toolbar-size;*/
+  background-color: #d0d6d9;
+  font-size: 30px;
+  color: #ffffff;
+  text-align: center;
+  line-height: $toolbar-size;
+}
+.toolbar-text{
+  position: absolute;
+  left: 0;
+  top:$toolbar-size;
+  /*width: $toolbar-size;
+  height: $toolbar-size;*/
+  background-color: #98a1a6;
+  padding-top: 12px;
+  font-size: 12px;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.2;
+  @include transition(top 1s)
+}
+
+
+.toolbar-layer{
+  position: absolute;
+  right: $toolbar-size - 6;
+  bottom: -10px;
+  width: 172px;
+  background-image: url("../img/toolbar_img.png");
+  background-repeat: no-repeat;
+  @include opacity(0);
+  @include transform-origin(95% 95%);
+  @include scale(0);
+  @include transition(all 1s)
+}
+.toolbar-layer-weixin{
+  height: 210px;
+  background-position: 0 0;
+}
+.toolbar-layer-app{
+  height: 190px;
+  background-position: 0 -220px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

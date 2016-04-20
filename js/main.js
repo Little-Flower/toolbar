@@ -12,7 +12,7 @@ requirejs.config({
 
 requirejs(['jquery'],function ($) {
     //验证是否成功引入模块
-    $('body').css('background-color','red');
+    // $('body').css('background-color','red');
     //返回顶部
     $("#backtop").on('click',go);
     //判断滚动时离顶部的距离
